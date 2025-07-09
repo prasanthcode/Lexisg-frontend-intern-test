@@ -20,23 +20,44 @@ function App() {
     setQuery('');
     setLoading(true);
 
-    setTimeout(() => {
-      const simulatedResponse = {
-        type: 'bot',
-        answer:
-          'Yes, under Section 166 of the Motor Vehicles Act, 1988, the claimants are entitled to an addition for future prospects even when the deceased was self-employed and aged 54–55 years at the time of the accident. In Dani Devi v. Pritam Singh, the Court held that 10% of the deceased’s annual income should be added as future prospects.',
-        citations: [
+    const simulatedResponse = {
+      type: 'bot',
+      answer:
+        'Yes, under Section 166 of the Motor Vehicles Act, 1988, the claimants are entitled to an addition for future prospects even when the deceased was self-employed and aged 54–55 years at the time of the accident. In Dani Devi v. Pritam Singh, the Court held that 10% of the deceased’s annual income should be added as future prospects.',
+      citations: [
+        {
+          text:
+            'as the age of the deceased at the time of accident was held to be about 54-55 years by the learned Tribunal, being self-employed, as such, 10% of annual income should have been awarded on account of future prospects.',
+          source: 'Dani_Devi_v_Pritam_Singh.pdf',
+          link: 'sample.pdf'
+        }
+      ]
+    };
+
+    let currentText = '';
+    let index = 0;
+
+    setMessages((prev) => [...prev, { type: 'bot', answer: '', citations: [] }]);
+    setLoading(false);
+
+    const revealText = () => {
+      if (index <= simulatedResponse.answer.length) {
+        currentText = simulatedResponse.answer.slice(0, index);
+        const finished = index === simulatedResponse.answer.length;
+        setMessages((prev) => [
+          ...prev.slice(0, -1),
           {
-            text:
-              'as the age of the deceased at the time of accident was held to be about 54-55 years by the learned Tribunal, being self-employed, as such, 10% of annual income should have been awarded on account of future prospects.',
-            source: 'Dani_Devi_v_Pritam_Singh.pdf',
-            link: 'sample.pdf'
+            type: 'bot',
+            answer: currentText,
+            citations: finished ? simulatedResponse.citations : []
           }
-        ]
-      };
-      setMessages((prev) => [...prev, simulatedResponse]);
-      setLoading(false);
-    }, 1500);
+        ]);
+        index++;
+        setTimeout(revealText, 15);
+      }
+    };
+
+    revealText();
   };
 
   useEffect(() => {
@@ -72,16 +93,15 @@ function App() {
             >
               {msg.type === 'bot' && (
                 <svg
-                className="w-10 h-10 rounded-full"
-              
-              fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M21.9,11.553l-3-6a.846.846,0,0,0-.164-.225A.987.987,0,0,0,18,5H13V3a1,1,0,0,0-2,0V5H6a.987.987,0,0,0-.731.328.846.846,0,0,0-.164.225l-3,6a.982.982,0,0,0-.1.447H2a4,4,0,0,0,8,0H9.99a.982.982,0,0,0-.1-.447L7.618,7H11V20H6a1,1,0,0,0,0,2H18a1,1,0,0,0,0-2H13V7h3.382l-2.277,4.553a.982.982,0,0,0-.1.447H14a4,4,0,0,0,8,0h-.01A.982.982,0,0,0,21.9,11.553ZM7.882,12H4.118L6,8.236Zm8.236,0L18,8.236,19.882,12Z"></path></g></svg>
-        
+                  className="w-10 h-10 rounded-full"
+                  fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"
+                >
+                  <path d="M21.9,11.553l-3-6a.846.846,0,0,0-.164-.225A.987.987,0,0,0,18,5H13V3a1,1,0,0,0-2,0V5H6a.987.987,0,0,0-.731.328.846.846,0,0,0-.164.225l-3,6a.982.982,0,0,0-.1.447H2a4,4,0,0,0,8,0H9.99a.982.982,0,0,0-.1-.447L7.618,7H11V20H6a1,1,0,0,0,0,2H18a1,1,0,0,0,0-2H13V7h3.382l-2.277,4.553a.982.982,0,0,0-.1.447H14a4,4,0,0,0,8,0h-.01A.982.982,0,0,0,21.9,11.553ZM7.882,12H4.118L6,8.236Zm8.236,0L18,8.236,19.882,12Z" />
+                </svg>
               )}
               <div
-                className={`max-w-sm px-4 py-3 text-sm rounded-2xl shadow ${
-                  msg.type === 'user'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-700 text-gray-100'
+                className={`max-w-sm px-4 py-3 text-sm rounded-2xl shadow whitespace-pre-wrap ${
+                  msg.type === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-100'
                 }`}
               >
                 {msg.type === 'bot' ? (
@@ -114,18 +134,21 @@ function App() {
                 )}
               </div>
               {msg.type === 'user' && (
-              
-                <svg className="w-10 h-10 rounded-full" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z" fill="#ffffff"></path> <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z" fill="#ffffff"></path> </g></svg>
+                <svg className="w-10 h-10 rounded-full" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+                  <path d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z" fill="#ffffff"></path>
+                  <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z" fill="#ffffff"></path>
+                </svg>
               )}
             </div>
           ))}
           {loading && (
             <div className="flex gap-2">
-            
               <svg
                 className="w-10 h-10 rounded-full"
-              
-              fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M21.9,11.553l-3-6a.846.846,0,0,0-.164-.225A.987.987,0,0,0,18,5H13V3a1,1,0,0,0-2,0V5H6a.987.987,0,0,0-.731.328.846.846,0,0,0-.164.225l-3,6a.982.982,0,0,0-.1.447H2a4,4,0,0,0,8,0H9.99a.982.982,0,0,0-.1-.447L7.618,7H11V20H6a1,1,0,0,0,0,2H18a1,1,0,0,0,0-2H13V7h3.382l-2.277,4.553a.982.982,0,0,0-.1.447H14a4,4,0,0,0,8,0h-.01A.982.982,0,0,0,21.9,11.553ZM7.882,12H4.118L6,8.236Zm8.236,0L18,8.236,19.882,12Z"></path></g></svg>
+                fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"
+              >
+                <path d="M21.9,11.553l-3-6a.846.846,0,0,0-.164-.225A.987.987,0,0,0,18,5H13V3a1,1,0,0,0-2,0V5H6a.987.987,0,0,0-.731.328.846.846,0,0,0-.164.225l-3,6a.982.982,0,0,0-.1.447H2a4,4,0,0,0,8,0H9.99a.982.982,0,0,0-.1-.447L7.618,7H11V20H6a1,1,0,0,0,0,2H18a1,1,0,0,0,0-2H13V7h3.382l-2.277,4.553a.982.982,0,0,0-.1.447H14a4,4,0,0,0,8,0h-.01A.982.982,0,0,0,21.9,11.553ZM7.882,12H4.118L6,8.236Zm8.236,0L18,8.236,19.882,12Z" />
+              </svg>
               <div className="bg-gray-700 px-4 py-2 rounded-2xl text-sm">
                 Generating answer...
               </div>
