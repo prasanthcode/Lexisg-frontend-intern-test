@@ -13,7 +13,7 @@ Follow the steps below to run the project locally:
 
 ```bash
 git clone https://github.com/yourusername/Lexisg-frontend-intern-test.git
-cd legal-chat-assistant
+cd Lexisg-frontend-intern-test
 ```
 
 ### 2. Install dependencies
@@ -32,15 +32,12 @@ Visit `http://localhost:3000` in your browser.
 
 ---
 
-## 📸 Screenshot
+## 📸 Screenshots
 
+> Replace the filenames if needed – ensure they are correctly named and located next to your README
 
-![Screenshot](./Screenshot From 2025-07-09 20-10-44.png)
-![Screenshot](./Screenshot From 2025-07-09 20-11-01.png)
-
-```
-
-```
+![Chat UI Screenshot 1](./Screenshot%20From%202025-07-09%2020-10-44.png)  
+![Chat UI Screenshot 2](./Screenshot%20From%202025-07-09%2020-11-01.png)
 
 ---
 
@@ -62,9 +59,9 @@ Each bot response may include citations to legal PDF documents. Here's how the s
 ```
 
 ### UI Flow:
-1. Citations appear below the bot’s message with a "View in PDF" button.
-2. When clicked, a popup opens and shows the corresponding PDF.
-3. The quoted text is passed to the popup (`highlightText`) for future enhancement like in-document highlighting.
+1. Citations appear below the bot’s message with a **"View in PDF"** button.
+2. When clicked, a popup opens and displays the corresponding PDF.
+3. The quoted text is passed to the popup as `highlightText` for potential future enhancement (e.g. automatic highlighting inside the document).
 
 ---
 
@@ -85,8 +82,8 @@ public/
 
 - [React 19](https://reactjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [React PDF](https://github.com/wojtekmaj/react-pdf) (optional)
-- HTML `<iframe>` fallback for lightweight PDF viewing
+- [React PDF](https://github.com/wojtekmaj/react-pdf)
+- HTML `<iframe>` (fallback for simpler PDF embedding)
 
 ---
 
