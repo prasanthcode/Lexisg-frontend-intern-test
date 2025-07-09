@@ -1,70 +1,101 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 🧑‍⚖️ Legal Chat Assistant
 
-## Available Scripts
+A smart legal chatbot built with **React** and **Tailwind CSS** that answers legal questions, shows relevant citations, and allows viewing the exact cited text in a PDF modal viewer.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Follow the steps below to run the project locally:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. Clone the repository
 
-### `npm test`
+```bash
+git clone https://github.com/yourusername/Lexisg-frontend-intern-test.git
+cd legal-chat-assistant
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. Install dependencies
 
-### `npm run build`
+```bash
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3. Start the development server
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Visit `http://localhost:3000` in your browser.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📸 Screenshot
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![Screenshot](./Screenshot From 2025-07-09 20-10-44.png)
+![Screenshot](./Screenshot From 2025-07-09 20-11-01.png)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
 
-## Learn More
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🔗 How Citation Linking Works
 
-### Code Splitting
+Each bot response may include citations to legal PDF documents. Here's how the system handles them:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- The bot message includes a `citations` array with:
+  - `text`: the quoted reference
+  - `source`: the document name
+  - `link`: the local/public PDF file path (e.g. `sample.pdf`)
 
-### Analyzing the Bundle Size
+```json
+{
+  "text": "10% of annual income should have been awarded on account of future prospects.",
+  "source": "Dani_Devi_v_Pritam_Singh.pdf",
+  "link": "sample.pdf"
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### UI Flow:
+1. Citations appear below the bot’s message with a "View in PDF" button.
+2. When clicked, a popup opens and shows the corresponding PDF.
+3. The quoted text is passed to the popup (`highlightText`) for future enhancement like in-document highlighting.
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 📁 Project Structure
 
-### Advanced Configuration
+```
+src/
+├── App.js                 # Main chat component
+├── components/
+│   └── HighlightPopup.jsx # PDF modal viewer
+public/
+└── sample.pdf             # Legal PDF file for citation demo
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## 🛠️ Built With
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- [React 19](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React PDF](https://github.com/wojtekmaj/react-pdf) (optional)
+- HTML `<iframe>` fallback for lightweight PDF viewing
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📄 License
+
+MIT License
+
+---
+
+## 🙌 Contributing
+
+Feel free to fork the repo and submit pull requests for enhancements or bug fixes!
