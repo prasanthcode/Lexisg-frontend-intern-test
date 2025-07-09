@@ -34,7 +34,6 @@ Visit `http://localhost:3000` in your browser.
 
 ## 📸 Screenshots
 
-> Replace the filenames if needed – ensure they are correctly named and located next to your README
 
 ![Chat UI Screenshot 1](./Screenshot%20From%202025-07-09%2020-10-44.png)  
 ![Chat UI Screenshot 2](./Screenshot%20From%202025-07-09%2020-11-01.png)
